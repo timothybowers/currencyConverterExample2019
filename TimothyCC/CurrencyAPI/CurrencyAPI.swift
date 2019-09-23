@@ -21,9 +21,10 @@ class CurrencyAPI {
     let currencyDataUrl = URL(string: "https://jsonapi.org/examples/")
     typealias fetchclosure = ([ProductRateDetails]?) -> Void
     
-    func fetchCurrencyDataDelegates() {
+    func fetchCurrencyDataDelegates(onComplete: ((ProductRateDetails?) -> Void)?) {
         
         guard let url = self.currencyDataUrl else {
+            onComplete?(nil)
             return
         }
         
@@ -33,8 +34,23 @@ class CurrencyAPI {
             .onResult(
                 onSuccess: { (data) in
 
+                    if let fetchedProducts: ProductRateDetails = JSON.data(data: data, returnType: ProductRateDetails.self) {
+
+                        onComplete?(fetchedProducts)
+                        return
+
+                    } else {
+
+                        onComplete?(nil)
+                        return
+
+                    }
+                    
             },
                 onError: { (httpError) in
+
+                    onComplete?(nil)
+                    return
 
             }
         )

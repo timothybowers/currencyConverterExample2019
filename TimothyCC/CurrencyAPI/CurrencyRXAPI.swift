@@ -41,7 +41,7 @@ class CurrencyRXAPI {
                 
                 for product in products {
                     let path = "data.Brands.WBC.Portfolios.FX.Products.\(product).Rates.\(product)"
-                    if let json = JSON.indexPath(data: data, path: path) {
+                    if let json = JSONHelper.indexPath(data: data, path: path) {
                         
                         do {
                             let data = try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys, .prettyPrinted])
