@@ -16,7 +16,7 @@ protocol HttpClientProtocol {
 
     func method(type: HttpMethods) -> HttpClient
     
-    func onResult(onSuccess: dataClosure?, onError: errorClosure?)
+    func onResult(onSuccessData: dataClosure?, onError: errorClosure?)
 
 }
 

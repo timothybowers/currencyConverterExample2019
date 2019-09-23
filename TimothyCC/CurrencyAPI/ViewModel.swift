@@ -23,20 +23,10 @@ class ViewModel {
     func fetchCurrencyDataDelegates(onComplete: ((RatesResponse?) -> Void)?) {
         
         currencyClient?
-            .currency(onSuccess: { (data) in
+            .currency(onSuccess: { (decodedObject) in
                 
-                if let fetchedProducts: RatesResponse = JSON.data(data: data, returnType: RatesResponse.self) {
-
-                    onComplete?(fetchedProducts)
-                    return
-
-                } else {
-
-                    onComplete?(nil)
-                    return
-
-                }
-                
+                onComplete?(decodedObject)
+                        
             }, onError: { (httpError) in
                 
                 onComplete?(nil)

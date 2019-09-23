@@ -13,6 +13,6 @@ enum HttpError {
     case error(error: Error)
     case invalidResponse(response: URLResponse)
     case nilResponse
-    case nilRequest
+    case invalidURL
 
 }

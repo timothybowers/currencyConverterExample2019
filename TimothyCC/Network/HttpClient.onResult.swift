@@ -10,7 +10,7 @@ import Foundation
 
 extension HttpClient {
     
-    func onResult(onSuccess: dataClosure?, onError: errorClosure?) {
+    func onResult(onSuccessData: dataClosure?, onError: errorClosure?) {
      
         let urlRequest = self.urlRequest
         
@@ -24,7 +24,7 @@ extension HttpClient {
                 
                 if let data = data {
                 
-                    onSuccess?(data)
+                    onSuccessData?(data)
                 
                 } else {
                     

@@ -12,16 +12,35 @@ class CurrencyClient {
     
     let baseURL = "https://localhost"
     
-    func currency(onSuccess: dataClosure?, onError: errorClosure? ) {
+    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure? ) {
         
+        // MARK: - Path
         let parameters = "?id=1"
         let requestString = "\(baseURL)/api/v1\(parameters)"
+
         guard let url = URL(string: requestString) else {
-            onError?(HttpError.nilRequest)
+            onError?(HttpError.invalidURL)
             return
         }
         
-        let _ = APIClient.url(url: url).method(type: .GET).onResult(onSuccess: onSuccess, onError: onError)
+        // MARK: - Decoder
+        let successData: dataClosure = { data in
+            if let fetchedProducts: RatesResponse = JSON.data(data: data, returnType: RatesResponse.self) {
+                onSuccess?(fetchedProducts)
+            }
+        }
+        
+        // MARK: - Start network request
+        APIClient
+            .url(url: url)
+            .method(type: .GET)
+            //.headerAuthToken
+            //.requestBody
+            .onResult(onSuccessData: successData, onError: onError)
     }
+
+    
     
 }
+
+
