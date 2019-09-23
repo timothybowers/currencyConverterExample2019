@@ -20,7 +20,7 @@ class CurrencyRXAPI {
     }
     
     let currencyDataUrl = URL(string: "https://jsonapi.org/examples/")
-    typealias fetchclosure = ([ProductRateDetails]?) -> Void
+    typealias fetchclosure = ([RatesResponse]?) -> Void
     
     func rxFetchCurrencyData(onComplete: fetchclosure?) {
 
@@ -29,7 +29,7 @@ class CurrencyRXAPI {
             return
         }
 
-        var productRates: [ProductRateDetails] = []
+        var productRates: [RatesResponse] = []
         
         let url = self.currencyDataUrl
         
@@ -46,7 +46,7 @@ class CurrencyRXAPI {
                         do {
                             let data = try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys, .prettyPrinted])
                             let decoder = JSONDecoder()
-                            let decoded = try decoder.decode(ProductRateDetails.self, from: data)
+                            let decoded = try decoder.decode(RatesResponse.self, from: data)
                             productRates.append(decoded)
                         }
                         catch {

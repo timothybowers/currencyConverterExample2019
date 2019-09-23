@@ -10,7 +10,7 @@ import Foundation
 
 class APIClient {
 
-    func url(url: URL) -> HttpClientProtocol {
+    class func url(url: URL) -> HttpClientProtocol {
         return HttpClient(urlRequest: URLRequest(url: url))
     }
     

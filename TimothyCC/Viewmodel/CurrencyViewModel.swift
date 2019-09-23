@@ -18,7 +18,7 @@ protocol CurrencyViewModelProtocol {
     
     // MARK: - CurrencyViewModel - Data
     
-    var products: [ProductRateDetails]? { get }
+    var products: [RatesResponse]? { get }
     
     var audValue: Decimal? { get }
     
@@ -35,13 +35,13 @@ protocol CurrencyViewModelProtocol {
 class CurrencyViewModel: CurrencyViewModelProtocol {
     
     init() {
-        self.currencyAPI = CurrencyClient()
+        self.currencyAPI = ViewModel()
         self.currencyRXAPI = CurrencyRXAPI()
     }
     
     // MARK: - Dependencies
     
-    private var currencyAPI: CurrencyClient?
+    private var currencyAPI: ViewModel?
     private var currencyRXAPI: CurrencyRXAPI?
 
     // MARK: - CurrencyViewModel - CallBacks
@@ -50,7 +50,7 @@ class CurrencyViewModel: CurrencyViewModelProtocol {
     
     // MARK: - CurrencyViewModel - Data
     
-    private(set) var products: [ProductRateDetails]?
+    private(set) var products: [RatesResponse]?
     
     private(set) var audValue: Decimal?
     
