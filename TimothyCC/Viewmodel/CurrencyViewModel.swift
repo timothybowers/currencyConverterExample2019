@@ -36,11 +36,13 @@ class CurrencyViewModel: CurrencyViewModelProtocol {
     
     init() {
         self.currencyAPI = CurrencyAPI()
+        self.currencyRXAPI = CurrencyRXAPI()
     }
     
     // MARK: - Dependencies
     
     private var currencyAPI: CurrencyAPI?
+    private var currencyRXAPI: CurrencyRXAPI?
 
     // MARK: - CurrencyViewModel - CallBacks
     
@@ -56,7 +58,7 @@ class CurrencyViewModel: CurrencyViewModelProtocol {
     
     func fetchLatestCurrencies() {
         
-        self.currencyAPI?.fetchCurrencyData { [weak self] products in
+        self.currencyRXAPI?.rxFetchCurrencyData { [weak self] products in
 
             self?.products = products
             

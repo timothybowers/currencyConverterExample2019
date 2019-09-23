@@ -1,31 +1,15 @@
 //
-//  NetworkAPI.swift
+//  NetworkRX.swift
 //  TimothyCC
 //
-//  Created by Timothy on 19/8/19.
+//  Created by Timothy on 23/9/19.
 //  Copyright © 2019 Timothy. All rights reserved.
 //
 
-import Foundation
 import RxSwift
 
-typealias HttpDataCompletionClosure = ((Data?) -> Void)
+class NetworkRX {
 
-class NetworkAPI {
-   
-    func fetchData(url: URL?, onCompletion: HttpDataCompletionClosure?) {
-        guard let url = url else {
-            return
-        }
-        
-        let urlRequest = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
-            onCompletion?(data)
-        }
-        task.resume()
-    }
-    
     func fetchDataRX(url: URL) -> Observable<Data?> {
 
         let urlRequest = URLRequest(url: url)
