@@ -35,13 +35,13 @@ protocol CurrencyViewModelProtocol {
 class CurrencyViewModel: CurrencyViewModelProtocol {
     
     init() {
-        self.currencyAPI = CurrencyAPI()
+        self.currencyAPI = CurrencyClient()
         self.currencyRXAPI = CurrencyRXAPI()
     }
     
     // MARK: - Dependencies
     
-    private var currencyAPI: CurrencyAPI?
+    private var currencyAPI: CurrencyClient?
     private var currencyRXAPI: CurrencyRXAPI?
 
     // MARK: - CurrencyViewModel - CallBacks

@@ -1,5 +1,5 @@
 //
-//  CurrencyAPI.swift
+//  CurrencyClient.swift
 //  TimothyCC
 //
 //  Created by Timothy on 19/8/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CurrencyAPI {
+class CurrencyClient {
     
     var apiClient: APIClient?
     var products: [String]?
