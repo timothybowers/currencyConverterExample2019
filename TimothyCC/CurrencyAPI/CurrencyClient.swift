@@ -23,6 +23,9 @@ class CurrencyClient {
             return
         }
         
+        // MARK: - Request Body
+        let requestBody = RatesRequest(id: "1234213")
+        
         // MARK: - Decoder
         let successData: dataClosure = { data in
             if let fetchedProducts: RatesResponse = JSON.data(data: data, returnType: RatesResponse.self) {
@@ -34,11 +37,12 @@ class CurrencyClient {
         APIClient
             .url(url: url)
             .method(type: .GET)
+            .body(requestBody)
             //.headerAuthToken
-            //.requestBody
             .onResult(onSuccessData: successData, onError: onError)
     }
 
+    
     
     
 }

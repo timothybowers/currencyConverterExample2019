@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatesRequest {
+struct RatesRequest: Encodable {
     
     var id: String
     
