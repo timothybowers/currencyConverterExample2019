@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 typealias HttpDataCompletionClosure = ((Data?) -> Void)
 
@@ -23,6 +24,33 @@ class NetworkAPI {
             onCompletion?(data)
         }
         task.resume()
+    }
+    
+    func fetchDataRX(url: URL) -> Observable<Data?> {
+
+        let urlRequest = URLRequest(url: url)
+        
+        return Observable.create { observer in
+            
+            let task = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
+                
+                if let error = error {
+
+                    observer.onError(error)
+                    
+                } else {
+
+                    observer.onNext(data)
+
+                }
+            }
+            task.resume()
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+
     }
     
 }

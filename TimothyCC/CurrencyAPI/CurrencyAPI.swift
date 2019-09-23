@@ -18,7 +18,7 @@ class CurrencyAPI {
         products = Constants().products
     }
     
-    let currencyDataUrl = URL(string: "https://localhost/getJsonRates.json")
+    let currencyDataUrl = URL(string: "https://jsonapi.org/examples/")
     typealias fetchclosure = ([ProductRateDetails]?) -> Void
     
     func fetchCurrencyData(onComplete: fetchclosure?) {
@@ -32,28 +32,38 @@ class CurrencyAPI {
         
         let url = self.currencyDataUrl
         
-        self.networkService?.fetchData(url: url, onCompletion: { data in
-
-            for product in products {
-                let path = "data.Brands.WBC.Portfolios.FX.Products.\(product).Rates.\(product)"
-                if let json = JSON.indexPath(data: data, path: path) {
-
-                    do {
-                        let data = try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys, .prettyPrinted])
-                        let decoder = JSONDecoder()
-                        let decoded = try decoder.decode(ProductRateDetails.self, from: data)
-                        productRates.append(decoded)
+        let _ = self.networkService?
+            .fetchDataRX(url: url!)
+        .subscribe(
+            onNext:  { data in
+                print("NEXT!")
+                
+                for product in products {
+                    let path = "data.Brands.WBC.Portfolios.FX.Products.\(product).Rates.\(product)"
+                    if let json = JSON.indexPath(data: data, path: path) {
+                        
+                        do {
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys, .prettyPrinted])
+                            let decoder = JSONDecoder()
+                            let decoded = try decoder.decode(ProductRateDetails.self, from: data)
+                            productRates.append(decoded)
+                        }
+                        catch {
+                            print("(\(String(describing: url))) HttpError.decoding:\nDecoding error: \(error)")
+                        }
                     }
-                    catch {
-                        print("(\(String(describing: url))) HttpError.decoding:\nDecoding error: \(error)")
-                    }
+                    
                 }
                 
+                onComplete?(productRates)
+                
+                
+            },
+            onError: { error in
+                print("ERROR!")
             }
-
-            onComplete?(productRates)
-
-        })
+        )
+        
 
     }
     
