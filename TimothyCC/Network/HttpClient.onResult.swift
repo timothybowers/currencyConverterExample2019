@@ -10,31 +10,34 @@ import Foundation
 
 extension HttpClient {
     
-    func onResult(onSuccessData: dataClosure?, onError: errorClosure?) {
+    func startRequest() {
      
-        let urlRequest = self.urlRequest
+        guard let urlRequest = urlRequest else {
+            onError?(HttpError.invalidURL)
+            return
+        }
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
+        let task = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data, urlResponse, error) in
 
             if let error = error {
                 
-                onError?(.error(error: error))
+                self?.onError?(.error(error: error))
                 
             } else {
                 
                 if let data = data {
                 
-                    onSuccessData?(data)
+                    self?.decodeClosure?(data)
                 
                 } else {
                     
                     if let urlResponse = urlResponse {
 
-                        onError?(.invalidResponse(response: urlResponse))
+                        self?.onError?(.invalidResponse(response: urlResponse))
 
                     } else {
                         
-                        onError?(.nilResponse)
+                        self?.onError?(.nilResponse)
                         
                     }
 

@@ -28,7 +28,7 @@ class JSONHelper {
         }
     }
     
-    class func indexPath(data: Data?, path: String?) -> Any? {
+    func indexPath(data: Data?, path: String?) -> Any? {
         guard let data = data else {
             return nil
         }

@@ -18,7 +18,7 @@ enum HttpMethods: String {
 extension HttpClient {
     
     func method(type: HttpMethods) -> HttpClient {
-        urlRequest.httpMethod = type.rawValue
+        urlRequest?.httpMethod = type.rawValue
         return self
     }
     

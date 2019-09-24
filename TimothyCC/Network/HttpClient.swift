@@ -14,21 +14,31 @@ typealias invalidClosure = (URLResponse) -> Void
 
 protocol HttpClientProtocol {
 
+    func onError(onError _onError: errorClosure?) -> HttpClient
+    
+    func url(url: String) -> HttpClient
+
     func method(type: HttpMethods) -> HttpClient
     
-    func onResult(onSuccessData: dataClosure?, onError: errorClosure?)
+    func body<T: Encodable>(_ bodyData: T) -> HttpClient
+    
+    func dataDecoder<T: Decodable>(returnType:  T.Type, onSuccess: ((T) -> Void)?) -> HttpClient
+    
+    func startRequest()
 
 }
 
 class HttpClient: HttpClientProtocol {
+   
+    var urlRequest: URLRequest?
+    var decodeClosure: dataClosure?
+    var decoderClient: DecoderClientProtocol?
+    var onError: errorClosure?
     
-    var urlRequest: URLRequest
-    
-    init(urlRequest _urlRequest: URLRequest) {
-        self.urlRequest = _urlRequest
+    init(decoderClient: DecoderClientProtocol) {
+        self.decoderClient = decoderClient
     }
     
 }
-
 
 

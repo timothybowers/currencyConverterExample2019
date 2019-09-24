@@ -1,5 +1,5 @@
 //
-//  JSON.swift
+//  JSONClient.swift
 //  TimothyCC
 //
 //  Created by Timothy on 23/9/19.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class JSON {
+class JSONDecoderClient: DecoderClientProtocol {
     
-    class func data<T: Decodable>(data: Data, returnType: T.Type) -> T? {
+    func data<T: Decodable>(data: Data, returnType: T.Type) -> T? {
 
         let decoder = JSONDecoder()
         
@@ -21,8 +21,6 @@ class JSON {
         } catch {
             
         }
-        
-        
         
         return nil
     }

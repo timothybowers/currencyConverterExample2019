@@ -8,43 +8,43 @@
 
 import Foundation
 
-class CurrencyClient {
+protocol CurrencyClientProtocol {
+    
+    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?)
+    
+}
+
+class CurrencyClient: CurrencyClientProtocol {
+    
+    var httpClient: HttpClientProtocol?
+    
+    init() {
+        self.httpClient = HttpClient(decoderClient: JSONDecoderClient())
+    }
     
     let baseURL = "https://localhost"
     
-    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure? ) {
+    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?) {
         
-        // MARK: - Path
+        // MARK: - Parameters
         let parameters = "?id=1"
-        let requestString = "\(baseURL)/api/v1\(parameters)"
 
-        guard let url = URL(string: requestString) else {
-            onError?(HttpError.invalidURL)
-            return
-        }
-        
+        // MARK: - Path
+        let url = "\(baseURL)/api/v1\(parameters)"
+
         // MARK: - Request Body
         let requestBody = RatesRequest(id: "1234213")
         
-        // MARK: - Decoder
-        let successData: dataClosure = { data in
-            if let fetchedProducts: RatesResponse = JSON.data(data: data, returnType: RatesResponse.self) {
-                onSuccess?(fetchedProducts)
-            }
-        }
-        
         // MARK: - Start network request
-        APIClient
+        httpClient?
+            .onError(onError: onError)
             .url(url: url)
             .method(type: .GET)
             .body(requestBody)
             //.headerAuthToken
-            .onResult(onSuccessData: successData, onError: onError)
+            .dataDecoder(returnType: RatesResponse.self, onSuccess: onSuccess)
+            .startRequest()
     }
 
-    
-    
-    
 }
-
 

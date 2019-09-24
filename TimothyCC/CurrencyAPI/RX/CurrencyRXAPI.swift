@@ -13,9 +13,11 @@ class CurrencyRXAPI {
     
     var networkRX: NetworkRX?
     var products: [String]?
+    var jsonHelper: JSONHelper?
 
     init() {
         self.networkRX = NetworkRX()
+        self.jsonHelper = JSONHelper()
         self.products = Constants().products
     }
     
@@ -36,12 +38,12 @@ class CurrencyRXAPI {
         let _ = self.networkRX?
             .fetchDataRX(url: url!)
         .subscribe(
-            onNext:  { data in
+            onNext:  { [weak self] data in
                 print("NEXT!")
                 
                 for product in products {
                     let path = "data.Brands.WBC.Portfolios.FX.Products.\(product).Rates.\(product)"
-                    if let json = JSONHelper.indexPath(data: data, path: path) {
+                    if let json = self?.jsonHelper?.indexPath(data: data, path: path) {
                         
                         do {
                             let data = try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys, .prettyPrinted])

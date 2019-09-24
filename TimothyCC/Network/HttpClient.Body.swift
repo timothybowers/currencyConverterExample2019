@@ -15,8 +15,8 @@ extension HttpClient {
         do {
             let httpBody = try JSONEncoder().encode(bodyData)
 
-            urlRequest.httpBody = httpBody
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest?.httpBody = httpBody
+            urlRequest?.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
             
         } catch {
