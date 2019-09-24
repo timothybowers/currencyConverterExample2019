@@ -141,7 +141,6 @@
 				1C1205D1230A988D0013A007 /* Viewmodel */,
 				1C1205CE230A95F50013A007 /* Constants */,
 				1C1205BD230A6B580013A007 /* Network */,
-				1C1205C6230A757A0013A007 /* Helpers */,
 				1C1205C3230A73D00013A007 /* CurrencyAPI */,
 				1C12059C230A69F00013A007 /* AppDelegate.swift */,
 				1C1205A0230A69F00013A007 /* Main.storyboard */,
@@ -164,8 +163,9 @@
 		1C1205BD230A6B580013A007 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1C1205C6230A757A0013A007 /* Helpers */,
 				1C8D394E2338E99A00CC652A /* Decoders */,
-				1C8D394B2338E61000CC652A /* RX */,
+				1C8D394B2338E61000CC652A /* RX-Example */,
 				1C1205BE230A6B7F0013A007 /* HttpClient.swift */,
 				1C39578D2339B39C006FF4F0 /* HttpClient.onError.swift */,
 				1C39578B23399D0C006FF4F0 /* HttpClient.URL.swift */,
@@ -181,7 +181,7 @@
 		1C1205C3230A73D00013A007 /* CurrencyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				1C8D39552338F49E00CC652A /* RX */,
+				1C8D39552338F49E00CC652A /* RX-Example */,
 				1C1205C0230A73100013A007 /* ViewModel.swift */,
 				1C8D39562338F5C500CC652A /* CurrencyClient.swift */,
 				1C8D39532338F40C00CC652A /* CurrencyClient.RatesRequest.swift */,
@@ -193,6 +193,7 @@
 		1C1205C6230A757A0013A007 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1C1205C7230A75890013A007 /* JSONHelper.swift */,
 				1C8D39512338F09300CC652A /* RequestHelper.swift */,
 			);
 			path = Helpers;
@@ -231,30 +232,29 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		1C8D394B2338E61000CC652A /* RX */ = {
+		1C8D394B2338E61000CC652A /* RX-Example */ = {
 			isa = PBXGroup;
 			children = (
 				1C8D39432338E07100CC652A /* HttpClient.RX.swift */,
 			);
-			path = RX;
+			path = "RX-Example";
 			sourceTree = "<group>";
 		};
 		1C8D394E2338E99A00CC652A /* Decoders */ = {
 			isa = PBXGroup;
 			children = (
-				1C8D394F2338E9B100CC652A /* JSONDecoderClient.swift */,
-				1C1205C7230A75890013A007 /* JSONHelper.swift */,
 				1C39578F2339B633006FF4F0 /* DecoderClientProtocol.swift */,
+				1C8D394F2338E9B100CC652A /* JSONDecoderClient.swift */,
 			);
 			path = Decoders;
 			sourceTree = "<group>";
 		};
-		1C8D39552338F49E00CC652A /* RX */ = {
+		1C8D39552338F49E00CC652A /* RX-Example */ = {
 			isa = PBXGroup;
 			children = (
 				1C8D39452338E32D00CC652A /* CurrencyRXAPI.swift */,
 			);
-			path = RX;
+			path = "RX-Example";
 			sourceTree = "<group>";
 		};
 		BAC8DF39C062DFD7835156BD /* Pods */ = {
