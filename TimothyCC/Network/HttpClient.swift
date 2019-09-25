@@ -14,7 +14,7 @@ typealias invalidClosure = (URLResponse) -> Void
 
 protocol HttpClientProtocol {
 
-    func onError(onError _onError: errorClosure?) -> HttpClient
+    func onError(onErrorClosure _onErrorClosure: errorClosure?) -> HttpClient
     
     func url(url: String) -> HttpClient
 

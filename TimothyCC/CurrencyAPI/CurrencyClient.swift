@@ -8,13 +8,24 @@
 
 import Foundation
 
+
+
+// MARK: - Public facing interface
+
 protocol CurrencyClientProtocol {
     
-    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?)
+    func currency(id: String, onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?)
     
 }
 
+
+
+// MARK: - All API Calls for a category in this Class
+
 class CurrencyClient: CurrencyClientProtocol {
+
+
+    // MARK: - DEPENDENCIES
     
     var httpClient: HttpClientProtocol?
     
@@ -22,12 +33,18 @@ class CurrencyClient: CurrencyClientProtocol {
         self.httpClient = HttpClient(decoderClient: JSONDecoderClient())
     }
     
+    
+    // MARK: - BASE URL
+    
     let baseURL = "https://localhost"
     
-    func currency(onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?) {
+    
+    // MARK: - API CALL
+    
+    func currency(id: String, onSuccess: ((RatesResponse) -> Void)?, onError: errorClosure?) {
         
         // MARK: - Parameters
-        let parameters = "?id=1"
+        let parameters = "?id=\(id)"
 
         // MARK: - Path
         let url = "\(baseURL)/api/v1\(parameters)"
@@ -37,7 +54,7 @@ class CurrencyClient: CurrencyClientProtocol {
         
         // MARK: - Start network request
         httpClient?
-            .onError(onError: onError)
+            .onError(onErrorClosure: onError)
             .url(url: url)
             .method(type: .GET)
             .body(requestBody)

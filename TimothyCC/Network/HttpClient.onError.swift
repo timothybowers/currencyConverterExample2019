@@ -10,8 +10,8 @@ import Foundation
 
 extension HttpClient {
     
-    func onError(onError _onError: errorClosure?) -> HttpClient {
-        self.onError = _onError
+    func onError(onErrorClosure _onErrorClosure: errorClosure?) -> HttpClient {
+        self.onError = _onErrorClosure
         return self
     }
     
