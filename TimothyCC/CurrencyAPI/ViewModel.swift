@@ -8,19 +8,36 @@
 
 import Foundation
 
+// MARK: - ViewModel example:
+
 class ViewModel {
+
+    // MARK: - Data
     
-    var currencyClient: CurrencyClient?
     var products: [String]?
 
+    
+    // MARK: - Dependencies
+    
+    var currencyClient: CurrencyClient?
+    
+    // MARK: - Initialisers
+    
     init() {
         self.currencyClient = CurrencyClient()
         self.products = Constants().products
     }
+
+    // MARK: - Closures
     
-    typealias fetchclosure = ([RatesResponse]?) -> Void
+    typealias fetchCurrencyClosure = (RatesResponse?) -> Void
+
     
-    func fetchCurrencyDataDelegates(onComplete: ((RatesResponse?) -> Void)?) {
+    // MARK: - API Methods
+    
+    func fetchCurrency(onComplete: fetchCurrencyClosure?) {
+        
+        // MARK: - Example of an API call:
         
         currencyClient?
             .currency(
